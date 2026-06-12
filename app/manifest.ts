@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "sa7ebti",
     short_name: "sa7ebti",
     description:
-      "Assistant skincare et makeup tunisien pour analyser les produits et personnaliser vos routines.",
+      "App tounsia lel skincare w makeup. Tscanni produit w ta3ref ida ynesbek wala le.",
     start_url: "/",
     display: "standalone",
     orientation: "portrait",

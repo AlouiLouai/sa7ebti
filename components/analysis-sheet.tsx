@@ -1,21 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
 import {
   ArrowLeftIcon,
   HeartIcon,
   ImageIcon,
+  LeafIcon,
   LightbulbIcon,
   PetalIcon,
   ShieldCheckIcon,
   ShieldSunIcon,
   WarmSunIcon,
-  WaterDropIcon,
-  LeafIcon
-} from "@/components/elyssette-icons";
+  WaterDropIcon
+} from "@/components/sa7ebti-icons";
+import { AnalysisGlassCard } from "@/components/analysis/analysis-glass-card";
+import { AnalysisIngredientRow } from "@/components/analysis/analysis-ingredient-row";
 import { SparkIcon } from "@/components/icons";
-import { ElyssetteTopBar } from "@/components/elyssette-shell";
 import { Sa7ebtiBottomNav } from "@/components/sa7ebti-bottom-nav";
+import { Sa7ebtiTopBar } from "@/components/sa7ebti-shell";
 
 const topbarAvatar =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuDbWL_OavFB6ye1fYuyGrJlzftJEf8WcVASQnIIxxnrY8aWjini5Z9uaR-wbOgZP1KRn-TGEh8CLTL4NY2z3vJuzkR25LqYeY9UO_FAuAJnvb1PwaTVwjkP6q1vZqXIvTdenL7-Jdd0VcpGRhI0MmhoeNXPWYgnk4S_7giwLUdisn6s8EDFyMSjfSNFaIxxhqDb8Zi2QFhZhlGh36rf48Z5QiNeqEz5H_pur1IWezPcK8swBC_QHC-Tu0yB8bOTQmyVJadHSDoo0nIH";
@@ -26,7 +27,7 @@ const productImage =
 export function AnalysisSheet() {
   return (
     <div className="overflow-x-hidden bg-surface font-body text-on-surface">
-      <ElyssetteTopBar
+      <Sa7ebtiTopBar
         leading={
           <Link href="/scan" className="inline-flex items-center justify-center text-primary active:scale-95">
             <ArrowLeftIcon className="h-5 w-5" />
@@ -35,13 +36,13 @@ export function AnalysisSheet() {
         avatarSrc={topbarAvatar}
       />
 
-      <main className="ely-zellige-pattern mx-auto min-h-screen max-w-2xl px-4 pb-28 pt-20">
+      <main className="sa7ebti-zellige-pattern mx-auto min-h-screen max-w-2xl px-4 pb-28 pt-20">
         <section className="relative mb-8">
           <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2">
             <div className="group relative">
               <div className="aspect-square overflow-hidden rounded-[1.4rem] shadow-xl transition-transform duration-500 group-hover:scale-[1.02]">
                 <Image
-                  alt="Scanned product"
+                  alt="produit mamsouh"
                   src={productImage}
                   width={768}
                   height={768}
@@ -57,7 +58,15 @@ export function AnalysisSheet() {
             <div className="flex flex-col items-center justify-center p-3 text-center">
               <div className="relative mb-2.5 h-28 w-28">
                 <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
-                  <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="6" className="text-secondary-container" />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="6"
+                    className="text-secondary-container"
+                  />
                   <circle
                     cx="50"
                     cy="50"
@@ -76,89 +85,86 @@ export function AnalysisSheet() {
                     92%
                   </span>
                   <span className="text-[0.62rem] font-medium uppercase tracking-[0.1em] text-on-surface-variant">
-                    Match
+                    yensbek
                   </span>
                 </div>
               </div>
-              <p className="font-display text-[1.15rem] leading-6 text-on-surface">Perfect Compatibility</p>
+              <p className="font-display text-[1.15rem] leading-6 text-on-surface">Yji m3ak barcha</p>
               <p className="mt-1 text-[0.82rem] text-on-surface-variant">
-                Analysis complete for your skin profile.
+                l analyse salet 3la hsab profil mte3ek.
               </p>
             </div>
           </div>
         </section>
 
         <div className="grid gap-4">
-          <GlassCard>
+          <AnalysisGlassCard>
             <div className="flex items-center justify-between gap-4">
               <div>
                 <span className="mb-1 block text-[0.64rem] font-semibold uppercase tracking-[0.1em] text-primary">
-                  Daily UV Forecast
+                  chams lyoum
                 </span>
                 <div className="flex items-center gap-2.5">
                   <WarmSunIcon className="h-4 w-4 text-tertiary" />
-                  <span className="font-display text-[1.1rem] leading-6 text-on-surface">UV Index: 8 (High)</span>
+                  <span className="font-display text-[1.1rem] leading-6 text-on-surface">UV 8 (3ali)</span>
                 </div>
-                <p className="mt-1 text-[0.78rem] text-on-surface-variant">Tunis, Tunisia</p>
+                <p className="mt-1 text-[0.78rem] text-on-surface-variant">Tunis, Tounes</p>
               </div>
               <div className="rounded-[0.9rem] bg-tertiary-container/20 p-2.5 text-right">
                 <p className="text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-tertiary">
-                  Sun Safety
+                  7meya mel chams
                 </p>
-                <p className="text-[0.78rem] font-bold text-on-surface">Reapply SPF every 2h</p>
+                <p className="text-[0.78rem] font-bold text-on-surface">3awed SPF kol 2 se3at</p>
               </div>
             </div>
-          </GlassCard>
+          </AnalysisGlassCard>
 
-          <GlassCard>
+          <AnalysisGlassCard>
             <div className="mb-2.5 flex items-center gap-2.5 text-tertiary">
               <ShieldCheckIcon className="h-4 w-4" />
-              <h2 className="font-display text-[1.12rem] leading-6">Why it works for your Oily skin</h2>
+              <h2 className="font-display text-[1.12rem] leading-6">3leh hedha yji m3a bachretek</h2>
             </div>
             <p className="text-[0.84rem] leading-6 text-on-surface-variant">
-              This formula leverages ultra-lightweight hydration that won&apos;t clog pores. The
-              base pH matches your natural skin barrier, specifically targeting sebum regulation.
-              While this serum does not contain SPF, its antioxidant-rich base enhances your
-              skin&apos;s resilience against UV-induced oxidative stress, maintaining the luminous
-              &quot;Sidi Bou Said&quot; glow.
+              formula hethi khfifa w ma teth9elch 3al pores. tzid ratba b doura mdawza
+              w t3awen t9allel lama3. ma fihach SPF ama yemshe m3a routine nhariya ken tzid
+              7meya men ba3d.
             </p>
-          </GlassCard>
+          </AnalysisGlassCard>
 
-          <GlassCard>
+          <AnalysisGlassCard>
             <h3 className="mb-4 text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-primary">
-              Ingredient Analysis
+              ta7lil l ingredients
             </h3>
             <div className="space-y-4">
-              <IngredientRow
+              <AnalysisIngredientRow
                 icon={<WaterDropIcon className="h-5 w-5 text-[#002020]" />}
                 iconClassName="bg-tertiary-container"
                 title="Hyaluronic Acid"
-                body="Deep hydration without oiliness. 100% safe for your profile."
+                body="ratba behya bla ma ykhallek tethan. yji m3a profil mte3ek."
               />
-              <IngredientRow
+              <AnalysisIngredientRow
                 icon={<LeafIcon className="h-5 w-5 text-[#4c4733]" />}
                 iconClassName="bg-secondary-container"
                 title="Green Tea Extract"
-                body="Anti-inflammatory properties to soothe redness and balance tone."
+                body="yheddi l bachra w y9allel l i7mirar."
               />
             </div>
-          </GlassCard>
+          </AnalysisGlassCard>
 
-          <GlassCard>
+          <AnalysisGlassCard>
             <div className="mb-2.5 flex items-center gap-2.5 text-primary">
               <ShieldSunIcon className="h-4 w-4" />
-              <h2 className="font-display text-[1.12rem] leading-6">Mediterranean Sun Defense</h2>
+              <h2 className="font-display text-[1.12rem] leading-6">7meya men chams tounes</h2>
             </div>
             <p className="mb-3 text-[0.84rem] leading-6 text-on-surface-variant">
-              Under the intense Tunisian sun, we recommend pairing this serum with a mineral-based
-              SPF 50. For a traditional cooling ritual, apply a thin layer of jasmine-infused white
-              clay (Tfal) in the evening to soothe sun-exposed skin.
+              ma3a chams tounes l 9wiya, a7sen haja tzid m3ah SPF 50. ken bachretk t7ess beha
+              s5ouna, tnajjem t7ot masque hedi fil lil.
             </p>
             <div className="flex items-center gap-2.5 rounded-[0.95rem] bg-secondary-container/30 p-2.5">
               <LightbulbIcon className="h-4 w-4 text-primary" />
-              <p className="text-[0.76rem] font-semibold">Pro Tip: Apply serum 15 mins before sunscreen.</p>
+              <p className="text-[0.76rem] font-semibold">Nasii7a: hot serum 9bal sunscreen b 15 d9i9a.</p>
             </div>
-          </GlassCard>
+          </AnalysisGlassCard>
 
           <div className="relative overflow-hidden rounded-[1.2rem] bg-primary-container p-4 text-on-primary-container shadow-lg">
             <div className="absolute -right-8 -top-8 rotate-12 opacity-10">
@@ -168,15 +174,13 @@ export function AnalysisSheet() {
               <div className="mb-2 flex items-center gap-2">
                 <SparkIcon className="h-4 w-4" />
                 <span className="text-[0.62rem] font-semibold uppercase tracking-[0.12em]">
-                  Tunisian Beauty Tip
+                  conseil sa7ebti
                 </span>
               </div>
-              <p className="mb-1 font-display text-[1.08rem] italic leading-6">&quot;The Jasmine Infusion&quot;</p>
+              <p className="mb-1 font-display text-[1.08rem] italic leading-6">&quot;ra7et l bachra&quot;</p>
               <p className="text-[0.82rem] italic leading-5 text-on-primary-container/90">
-                For enhanced results, apply this serum immediately after a light steam with
-                Jasmine-infused water. In our heritage, the warmth of the steam opens the
-                &apos;gates of the skin&apos;, allowing the product to penetrate as deeply as the roots
-                of an ancient olive tree.
+                ken t7eb rezultat a7sen, hotou ba3d nettoyage hnin w 5alli l bachra tcherb
+                b chwaya chwaya 9bal ma tzid ay produit ekher.
               </p>
             </div>
           </div>
@@ -188,52 +192,19 @@ export function AnalysisSheet() {
             className="flex h-11 w-full items-center justify-center gap-2.5 rounded-full bg-primary text-[0.74rem] font-semibold uppercase tracking-[0.08em] text-on-primary transition-opacity hover:opacity-90"
           >
             <HeartIcon className="h-4 w-4" />
-            Save to Ritual
+            7otou fel favoris
           </button>
           <Link
             href="/scan"
             className="flex h-11 w-full items-center justify-center gap-2.5 rounded-full border border-primary/20 text-[0.74rem] font-semibold uppercase tracking-[0.08em] text-primary transition-colors hover:bg-primary/5"
           >
             <ImageIcon className="h-4 w-4" />
-            Try Another
+            jarrab produit ekher
           </Link>
         </div>
       </main>
 
-      <Sa7ebtiBottomNav active="analysis" />
-    </div>
-  );
-}
-
-function GlassCard({ children }: { children: ReactNode }) {
-  return (
-    <div className="relative overflow-hidden rounded-[1.2rem] border border-white/40 p-4 shadow-ambient ely-glass-card">
-      <div className="pointer-events-none absolute inset-0 opacity-5 ely-zellige-pattern" />
-      <div className="relative z-10">{children}</div>
-    </div>
-  );
-}
-
-function IngredientRow({
-  icon,
-  iconClassName,
-  title,
-  body
-}: {
-  icon: ReactNode;
-  iconClassName: string;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="flex items-start gap-3">
-      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${iconClassName}`}>
-        {icon}
-      </div>
-      <div>
-        <p className="text-[0.92rem] font-bold leading-5 text-on-surface">{title}</p>
-        <p className="text-[0.76rem] leading-5 text-on-surface-variant">{body}</p>
-      </div>
+      <Sa7ebtiBottomNav active="scan" />
     </div>
   );
 }

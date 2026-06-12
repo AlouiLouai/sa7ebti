@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | sa7ebti"
   },
   description:
-    "Assistant skincare et makeup tunisien pour scanner des produits, lire les ingredients et adapter vos routines au climat local.",
+    "mosa3ed tounsi lel skincare w makeup. tscanni produit w ya3tik ida ynesbek wala le.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
@@ -55,7 +55,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="fr">
+    <html lang="en">
       <body className={`${displayFont.variable} ${bodyFont.variable} font-body text-espresso antialiased`}>
         {children}
       </body>

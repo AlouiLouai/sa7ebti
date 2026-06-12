@@ -10,7 +10,7 @@ type TopBarProps = {
 const defaultAvatar =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuA41xPmrDk6rANDbIJl7ITks9UGS0m_Xnlr11Tt2LuXYxsEFuE04YQybPYQL974fC2DCQrq9_bPf48E4ELoM27a6llun8BA39tjaS35HM_otqC5WfuKSXllnKMJVF5TGt2QEgBfxSaE2E5ke4obhaRO10OY9IMUnYMaERMFIWKRNh0-mAzvmWApA6PLKl5MhXlFSQGUW0dalsld6t-vj6gg6bwmcbm2dKDUqhwqmk_Y5RS1xqQQTtKb260ouCEfiSZWyHsP67-EKEPp";
 
-export function ElyssetteTopBar({
+export function Sa7ebtiTopBar({
   leading,
   title = "sa7ebti",
   avatarSrc = defaultAvatar
@@ -26,7 +26,7 @@ export function ElyssetteTopBar({
         </h1>
         <div className="h-9 w-9 overflow-hidden rounded-full border border-espresso/10 bg-secondary-container">
           <Image
-            alt="User profile"
+            alt="profil l user"
             src={avatarSrc}
             width={36}
             height={36}

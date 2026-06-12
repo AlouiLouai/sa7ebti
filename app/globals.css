@@ -65,24 +65,24 @@
 }
 
 @layer components {
-  .ely-glass-card {
+  .sa7ebti-glass-card {
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
 
-  .ely-zellige-pattern {
+  .sa7ebti-zellige-pattern {
     background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%2391472f' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
   }
 
-  .ely-jasmine-pattern {
+  .sa7ebti-jasmine-pattern {
     position: relative;
     background-color: #faf9f6;
     background-image: radial-gradient(circle at 50% 50%, rgba(38, 37, 34, 0.045) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
-  .ely-jasmine-pattern::before {
+  .sa7ebti-jasmine-pattern::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -92,16 +92,16 @@
     background-size: 120px;
   }
 
-  .ely-scan-frame {
+  .sa7ebti-scan-frame {
     position: relative;
     width: min(80vw, 320px);
     height: min(80vw, 320px);
   }
 
-  .ely-scan-frame::before,
-  .ely-scan-frame::after,
-  .ely-scan-frame > span::before,
-  .ely-scan-frame > span::after {
+  .sa7ebti-scan-frame::before,
+  .sa7ebti-scan-frame::after,
+  .sa7ebti-scan-frame > span::before,
+  .sa7ebti-scan-frame > span::after {
     content: "";
     position: absolute;
     width: 40px;
@@ -110,7 +110,7 @@
     border-width: 4px;
   }
 
-  .ely-scan-frame::before {
+  .sa7ebti-scan-frame::before {
     top: 0;
     left: 0;
     border-right: 0;
@@ -118,7 +118,7 @@
     border-top-left-radius: 24px;
   }
 
-  .ely-scan-frame::after {
+  .sa7ebti-scan-frame::after {
     top: 0;
     right: 0;
     border-left: 0;
@@ -126,7 +126,7 @@
     border-top-right-radius: 24px;
   }
 
-  .ely-scan-frame > span::before {
+  .sa7ebti-scan-frame > span::before {
     bottom: 0;
     left: 0;
     border-right: 0;
@@ -134,7 +134,7 @@
     border-bottom-left-radius: 24px;
   }
 
-  .ely-scan-frame > span::after {
+  .sa7ebti-scan-frame > span::after {
     bottom: 0;
     right: 0;
     border-left: 0;
@@ -154,7 +154,7 @@
   }
 }
 
-@keyframes ely-shake {
+@keyframes sa7ebti-shake {
   0%,
   100% {
     transform: translateX(0);
