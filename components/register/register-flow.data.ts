@@ -12,13 +12,24 @@ import {
   WarmSunIcon,
   WaterDropIcon
 } from "@/components/sa7ebti-icons";
+import type {
+  IngredientAvoidance,
+  MakeupUsageLevel,
+  ProfileConcern,
+  SkinType,
+  TunisiaClimateRegion
+} from "@/lib/domain/profile";
 
 export type RegisterOption = {
-  value: string;
+  value: SkinType | TunisiaClimateRegion | MakeupUsageLevel | ProfileConcern | IngredientAvoidance;
   title: string;
   description: string;
   icon: ComponentType<ComponentProps<"svg">>;
   accent?: string;
+};
+
+type RegisterTypedOption<T extends RegisterOption["value"]> = Omit<RegisterOption, "value"> & {
+  value: T;
 };
 
 export const registerProfilePhoto =
@@ -31,7 +42,7 @@ export const profileCriteriaPreview = [
   "7assasiya"
 ];
 
-export const skinOptions: RegisterOption[] = [
+export const skinOptions: RegisterTypedOption<SkinType>[] = [
   {
     value: "oily",
     title: "Dahniya",
@@ -46,7 +57,7 @@ export const skinOptions: RegisterOption[] = [
   },
   {
     value: "combination",
-    title: "Mixte",
+    title: "Mokhtlta",
     description: "zone T adhan w l jouj arye7.",
     icon: BalanceIcon
   },
@@ -58,10 +69,10 @@ export const skinOptions: RegisterOption[] = [
   }
 ];
 
-export const climateOptions: RegisterOption[] = [
+export const climateOptions: RegisterTypedOption<TunisiaClimateRegion>[] = [
   {
     value: "grand-tunis",
-    title: "Grand Tunis",
+    title: "Tunis l kobra",
     description: "rtouba, chwaya talawoth w lama3 fi nhar.",
     icon: ApartmentIcon
   },
@@ -74,16 +85,16 @@ export const climateOptions: RegisterOption[] = [
   },
   {
     value: "center-south",
-    title: "West / Janoub",
+    title: "Dakhel / Janoub",
     description: "s5ana yebsa, ghobbar w jeld yenshef b sra3.",
     icon: WarmSunIcon
   }
 ];
 
-export const makeupOptions: RegisterOption[] = [
+export const makeupOptions: RegisterTypedOption<MakeupUsageLevel>[] = [
   {
     value: "bare-minimal",
-    title: "Makeup khfif",
+    title: "Mekyaj khfif",
     description: "SPF, teint khfif w look fresh kol nhar.",
     icon: PetalIcon
   },
@@ -107,7 +118,7 @@ export const makeupOptions: RegisterOption[] = [
   }
 ];
 
-export const concernOptions: RegisterOption[] = [
+export const concernOptions: RegisterTypedOption<ProfileConcern>[] = [
   {
     value: "acne",
     title: "7boub",
@@ -134,7 +145,7 @@ export const concernOptions: RegisterOption[] = [
   }
 ];
 
-export const filterOptions: RegisterOption[] = [
+export const filterOptions: RegisterTypedOption<IngredientAvoidance>[] = [
   {
     value: "fragrance-free",
     title: "Bla parfum",

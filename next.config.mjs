@@ -9,6 +9,7 @@ const nextConfig = {
         pathname: "/aida-public/**"
       }
     ],
+    qualities: [60, 72, 74],
     formats: ["image/avif", "image/webp"]
   }
 };

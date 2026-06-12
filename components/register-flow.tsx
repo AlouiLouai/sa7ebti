@@ -19,20 +19,28 @@ import { RegisterOptionCard } from "@/components/register/register-option-card";
 import { RegisterSelectionRow } from "@/components/register/register-selection-row";
 import { RegisterSubmitBar } from "@/components/register/register-submit-bar";
 import { RegisterSummaryBadge } from "@/components/register/register-summary-badge";
+import { RegisterReminderCard } from "@/components/register/register-reminder-card";
 import { useRegisterForm } from "@/hooks/use-register-form";
+import { useUserProfile } from "@/hooks/use-user-profile";
+import { sa7ebtiCopy } from "@/lib/copy/sa7ebti-copy";
+import { RescanSuggestionsCard } from "@/components/profile/rescan-suggestions-card";
+import { UvReminderCard } from "@/components/notifications/uv-reminder-card";
 
 export function RegisterFlow() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const { profileDraft: savedProfileDraft, saveProfileDraft } = useUserProfile();
   const {
     form,
     isReady,
+    profileDraft,
     selectClimate,
     selectMakeupStyle,
     selectSkinType,
     toggleConcern,
-    toggleIngredientFilter
-  } = useRegisterForm();
+    toggleIngredientFilter,
+    setUvReminderPreference
+  } = useRegisterForm(savedProfileDraft);
 
   function handleSubmit() {
     if (!isReady) {
@@ -40,6 +48,7 @@ export function RegisterFlow() {
     }
 
     startTransition(() => {
+      saveProfileDraft(profileDraft);
       router.push("/scan");
     });
   }
@@ -52,6 +61,7 @@ export function RegisterFlow() {
             <CloseIcon className="h-6 w-6" />
           </Link>
         }
+        title={sa7ebtiCopy.routes.register}
         avatarSrc={registerProfilePhoto}
       />
 
@@ -76,21 +86,30 @@ export function RegisterFlow() {
 
           <div className="mt-4 flex flex-wrap gap-1.5">
             <RegisterSummaryBadge
-              label={skinOptions.find((item) => item.value === form.skinType)?.title ?? "Peau"}
+              label={skinOptions.find((item) => item.value === form.skinType)?.title ?? "Bachra"}
             />
             <RegisterSummaryBadge
               label={climateOptions.find((item) => item.value === form.climate)?.title ?? "Manta9a"}
             />
             <RegisterSummaryBadge
-              label={makeupOptions.find((item) => item.value === form.makeupStyle)?.title ?? "Makeup"}
+              label={makeupOptions.find((item) => item.value === form.makeupStyle)?.title ?? "Mekyaj"}
             />
             <RegisterSummaryBadge
               label={form.concerns.length > 0 ? `${form.concerns.length} awlawiyet` : "Awlawiyet"}
+            />
+            <RegisterSummaryBadge
+              label={profileDraft.spfHabit === "daily" ? "SPF dima" : "SPF mouch m3abbi"}
+            />
+            <RegisterSummaryBadge
+              label={form.uvReminderPreference === "enabled" ? "tnabih SPF cha3el" : "tnabih SPF mtafi"}
             />
           </div>
         </section>
 
         <div className="mt-4 space-y-3">
+          <UvReminderCard />
+          <RescanSuggestionsCard />
+
           <RegisterFormSection
             eyebrow="01"
             title="No3 lbachra"
@@ -167,6 +186,27 @@ export function RegisterFlow() {
                   onClick={() => toggleIngredientFilter(option.value)}
                 />
               ))}
+            </div>
+          </RegisterFormSection>
+
+          <RegisterFormSection
+            eyebrow="05"
+            title="Tnabihet SPF"
+            description="ikhtar ken t7eb sa7ebti tfakrek b 7meya men chams fil cards lyoumia."
+          >
+            <div className="grid gap-2.5">
+              <RegisterReminderCard
+                title="Cha3el tnabih"
+                description="bech tal9a fil home w ntiija tfakra b SPF w 3awda."
+                selected={form.uvReminderPreference === "enabled"}
+                onClick={() => setUvReminderPreference("enabled")}
+              />
+              <RegisterReminderCard
+                title="Sakrou taw"
+                description="ken t7eb cards akther khfifa w bla tnabih zeyed."
+                selected={form.uvReminderPreference === "disabled"}
+                onClick={() => setUvReminderPreference("disabled")}
+              />
             </div>
           </RegisterFormSection>
         </div>

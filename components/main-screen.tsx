@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
 import type { ComponentProps, ComponentType } from "react";
+import { DailyUsefulnessPanel } from "@/components/daily/daily-usefulness-panel";
 import { profileCriteriaPreview } from "@/components/register/register-flow.data";
 import { Sa7ebtiBottomNav } from "@/components/sa7ebti-bottom-nav";
 import {
@@ -57,9 +58,9 @@ export function MainScreen() {
           alt="tofla tounsia chedda box sa7ebti"
           src={heroImage}
           fill
-          priority
+          loading="eager"
+          fetchPriority="high"
           unoptimized
-          quality={74}
           sizes="100vw"
           className="object-cover object-[center_18%]"
         />
@@ -108,32 +109,7 @@ export function MainScreen() {
             </div>
           </div>
 
-          <div className="rounded-[1.7rem] border border-espresso/[0.08] bg-white/80 p-4 shadow-[0_18px_36px_rgba(38,37,34,0.06)] backdrop-blur-md">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-terracotta">
-                  chnou ta3mel sa7ebti
-                </p>
-                <h3 className="mt-2 font-display text-[1.35rem] leading-[1.02] text-espresso">
-                  t9ollek idha produit yji m3ak wala le.
-                </h3>
-              </div>
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#F5EEE7] text-terracotta">
-                <ShieldCheckIcon className="h-5 w-5" />
-              </div>
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <CompactFact
-                title="check l fit"
-                body="texture, ingredients, climat w style l makeup."
-              />
-              <CompactFact
-                title="ye5ou SPF b3in l i3tibar"
-                body="ychouf chams, retouche w layering."
-              />
-            </div>
-          </div>
+          <DailyUsefulnessPanel variant="compact" />
 
           <div className="rounded-[1.7rem] border border-espresso/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.82),rgba(246,239,230,0.92))] p-4 shadow-[0_18px_36px_rgba(38,37,34,0.06)]">
             <div className="flex items-center justify-between gap-3">
@@ -207,17 +183,6 @@ function ValueCard({
       </div>
       <p className="mt-3 text-[0.72rem] font-semibold leading-4.5 text-white">{title}</p>
       <p className="mt-1 text-[0.66rem] leading-4.5 text-white/72">{body}</p>
-    </div>
-  );
-}
-
-function CompactFact({ title, body }: { title: string; body: string }) {
-  return (
-    <div className="rounded-[1.2rem] bg-[#FAF6F0] px-3 py-2.5">
-      <p className="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-terracotta">
-        {title}
-      </p>
-      <p className="mt-1.5 text-[0.74rem] leading-5 text-espresso/[0.7]">{body}</p>
     </div>
   );
 }

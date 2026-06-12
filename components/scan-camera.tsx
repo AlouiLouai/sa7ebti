@@ -8,6 +8,8 @@ import { ArrowLeftIcon, ScannerFocusIcon } from "@/components/sa7ebti-icons";
 import { Sa7ebtiBottomNav } from "@/components/sa7ebti-bottom-nav";
 import { Sa7ebtiTopBar } from "@/components/sa7ebti-shell";
 import { useScanSource } from "@/hooks/use-scan-source";
+import { sa7ebtiCopy } from "@/lib/copy/sa7ebti-copy";
+import { scanCategoryOptions } from "@/lib/domain/scan-flow";
 
 export function ScanCamera() {
   const {
@@ -17,14 +19,14 @@ export function ScanCamera() {
     galleryInputRef,
     handleSelection,
     isPending,
-    openSourcePicker
+    openSourcePicker,
+    selectedCategory,
+    setSelectedCategory
   } = useScanSource();
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-espresso">
-      {flashFrame ? (
-        <div className="pointer-events-none fixed inset-0 z-[100] bg-white/80 transition-opacity" />
-      ) : null}
+      {flashFrame ? <div className="pointer-events-none fixed inset-0 z-[100] bg-white/80 transition-opacity" /> : null}
 
       <Sa7ebtiTopBar
         leading={
@@ -32,7 +34,7 @@ export function ScanCamera() {
             <ArrowLeftIcon className="h-5 w-5" />
           </Link>
         }
-        title="scan"
+        title={sa7ebtiCopy.routes.scan}
       />
 
       <LazyMotion features={domAnimation}>
@@ -58,7 +60,7 @@ export function ScanCamera() {
             </div>
 
             <p className="mt-3 text-[0.9rem] leading-6 text-white/75">
-              scanni produit makeup wala skincare, w sa7ebti twarik bel waD7 ida yji m3ak wala le.
+              scanni produit makeup wala skincare, w sa7ebti twarik bel wade7 ida yji m3ak wala le.
             </p>
           </m.section>
 
@@ -90,6 +92,39 @@ export function ScanCamera() {
             </div>
 
             <div className="mt-4 rounded-[1.2rem] bg-[#FAF6F0] p-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-terracotta">
+                    no3 l produit
+                  </p>
+                  <p className="mt-1.5 text-[0.8rem] leading-5 text-espresso/[0.72]">
+                    ken ta3rfou men tawa, ikhtarah. ken le, sa7ebti t5allik tkammel ba3d.
+                  </p>
+                </div>
+                <span className="rounded-full bg-white px-2.5 py-1 text-[0.64rem] font-semibold text-terracotta">
+                  ikhtyari
+                </span>
+              </div>
+
+              <div className="mt-3 flex flex-wrap gap-2">
+                {scanCategoryOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setSelectedCategory(option.value)}
+                    className={`rounded-full px-3 py-2 text-[0.72rem] font-semibold transition-all duration-300 active:scale-[0.98] ${
+                      selectedCategory === option.value
+                        ? "bg-[#C97A53] text-white shadow-button"
+                        : "border border-espresso/[0.08] bg-white text-espresso/[0.72]"
+                    }`}
+                  >
+                    {option.shortLabel}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-3 rounded-[1.2rem] bg-[#FAF6F0] p-3">
               <p className="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-terracotta">
                 chnoua nscannou
               </p>

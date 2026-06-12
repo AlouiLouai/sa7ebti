@@ -14,7 +14,7 @@ export function RegisterSubmitBar({
       <div className="mx-auto flex max-w-xl items-center gap-2.5 rounded-[1.35rem] border border-espresso/[0.08] bg-white/[0.72] p-2.5 shadow-soft">
         <div className="min-w-0 flex-1">
           <p className="text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-terracotta">
-            We9t l scan
+            wa9t l scan
           </p>
           <p className="truncate text-[0.76rem] text-espresso/[0.68]">
             {isReady
@@ -28,7 +28,7 @@ export function RegisterSubmitBar({
           disabled={!isReady || isPending}
           className="flex h-10.5 shrink-0 items-center justify-center rounded-full bg-[#C97A53] px-4 text-[0.72rem] font-semibold uppercase tracking-[0.04em] text-white shadow-button transition-all duration-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {isPending ? "tsanna..." : "Sana3 profil"}
+          {isPending ? "tsanna..." : "kamel profil"}
         </button>
       </div>
     </footer>

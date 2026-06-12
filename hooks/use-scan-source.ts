@@ -3,6 +3,8 @@
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import type { ProductCategory } from "@/lib/domain/product-fit";
+import { saveCurrentScan } from "@/hooks/use-current-scan";
 
 export type ScanSource = "camera" | "gallery";
 
@@ -11,6 +13,7 @@ export function useScanSource() {
   const [isPending, startTransition] = useTransition();
   const [flashFrame, setFlashFrame] = useState(false);
   const [activeSource, setActiveSource] = useState<ScanSource | null>("camera");
+  const [selectedCategory, setSelectedCategory] = useState<ProductCategory>("unknown");
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
 
@@ -33,6 +36,12 @@ export function useScanSource() {
       window.setTimeout(() => setFlashFrame(false), 160);
     }
 
+    saveCurrentScan({
+      fileName: file.name,
+      selectedCategory,
+      source
+    });
+
     startTransition(() => {
       router.push("/analysis");
     });
@@ -47,7 +56,9 @@ export function useScanSource() {
     galleryInputRef,
     handleSelection,
     isPending,
-    openSourcePicker
+    openSourcePicker,
+    selectedCategory,
+    setSelectedCategory
   };
 }
 

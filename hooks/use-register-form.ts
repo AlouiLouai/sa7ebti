@@ -1,13 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createProfileDraftFromRegisterForm } from "@/lib/domain/register-mappers";
+import type {
+  RegisterClimate,
+  RegisterConcern,
+  RegisterFilter,
+  RegisterMakeupUsage,
+  RegisterSkinType,
+  RegisterUvReminder
+} from "@/lib/domain/register-mappers";
+import { createEmptyUserProfileDraft, type UserProfileDraft } from "@/lib/domain/profile";
 
 export type RegisterFormState = {
-  skinType: string;
-  climate: string;
-  makeupStyle: string;
-  concerns: string[];
-  ingredientFilters: string[];
+  skinType: RegisterSkinType;
+  climate: RegisterClimate;
+  makeupStyle: RegisterMakeupUsage;
+  concerns: RegisterConcern[];
+  ingredientFilters: RegisterFilter[];
+  uvReminderPreference: RegisterUvReminder;
 };
 
 const initialFormState: RegisterFormState = {
@@ -15,25 +26,49 @@ const initialFormState: RegisterFormState = {
   climate: "",
   makeupStyle: "",
   concerns: [],
-  ingredientFilters: []
+  ingredientFilters: [],
+  uvReminderPreference: "disabled"
 };
 
-export function useRegisterForm() {
+export function useRegisterForm(savedDraft?: UserProfileDraft) {
   const [form, setForm] = useState<RegisterFormState>(initialFormState);
 
-  function selectSkinType(value: string) {
+  useEffect(() => {
+    if (!savedDraft) {
+      return;
+    }
+
+    const emptyDraft = createEmptyUserProfileDraft();
+    const mergedDraft = {
+      ...emptyDraft,
+      ...savedDraft
+    };
+    const uvReminderPreference: RegisterUvReminder =
+      mergedDraft.uvReminderPreference === "enabled" ? "enabled" : "disabled";
+
+    setForm({
+      skinType: mergedDraft.skinType ?? "",
+      climate: mergedDraft.climateRegion ?? "",
+      makeupStyle: mergedDraft.makeupUsage ?? "",
+      concerns: mergedDraft.concerns,
+      ingredientFilters: mergedDraft.ingredientAvoidances,
+      uvReminderPreference
+    });
+  }, [savedDraft]);
+
+  function selectSkinType(value: RegisterSkinType) {
     setForm((current) => ({ ...current, skinType: value }));
   }
 
-  function selectClimate(value: string) {
+  function selectClimate(value: RegisterClimate) {
     setForm((current) => ({ ...current, climate: value }));
   }
 
-  function selectMakeupStyle(value: string) {
+  function selectMakeupStyle(value: RegisterMakeupUsage) {
     setForm((current) => ({ ...current, makeupStyle: value }));
   }
 
-  function toggleConcern(value: string) {
+  function toggleConcern(value: RegisterConcern) {
     setForm((current) => ({
       ...current,
       concerns: current.concerns.includes(value)
@@ -42,7 +77,7 @@ export function useRegisterForm() {
     }));
   }
 
-  function toggleIngredientFilter(value: string) {
+  function toggleIngredientFilter(value: RegisterFilter) {
     setForm((current) => ({
       ...current,
       ingredientFilters: current.ingredientFilters.includes(value)
@@ -51,13 +86,19 @@ export function useRegisterForm() {
     }));
   }
 
+  function setUvReminderPreference(value: RegisterUvReminder) {
+    setForm((current) => ({ ...current, uvReminderPreference: value }));
+  }
+
   return {
     form,
+    profileDraft: createProfileDraftFromRegisterForm(form),
     isReady: Boolean(form.skinType && form.climate && form.makeupStyle),
     selectSkinType,
     selectClimate,
     selectMakeupStyle,
     toggleConcern,
-    toggleIngredientFilter
+    toggleIngredientFilter,
+    setUvReminderPreference
   };
 }

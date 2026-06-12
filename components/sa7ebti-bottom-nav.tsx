@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { LazyMotion, domAnimation, m, useMotionValueEvent, useScroll } from "motion/react";
 import { DiscoverIcon, LeafIcon, PersonIcon, ScannerFocusIcon } from "@/components/sa7ebti-icons";
+import { sa7ebtiCopy } from "@/lib/copy/sa7ebti-copy";
 
 type BottomNavProps = {
   active: "home" | "scan" | "results" | "profile";
@@ -11,10 +12,10 @@ type BottomNavProps = {
 };
 
 const navItems = [
-  { id: "home", href: "/", label: "Dar", icon: DiscoverIcon },
-  { id: "scan", href: "/scan", label: "Scan", icon: ScannerFocusIcon },
-  { id: "results", href: "/ntija", label: "Ntiija", icon: LeafIcon },
-  { id: "profile", href: "/register", label: "Profil", icon: PersonIcon }
+  { id: "home", href: "/", label: sa7ebtiCopy.nav.home, icon: DiscoverIcon },
+  { id: "scan", href: "/scan", label: sa7ebtiCopy.nav.scan, icon: ScannerFocusIcon },
+  { id: "results", href: "/ntija", label: sa7ebtiCopy.nav.results, icon: LeafIcon },
+  { id: "profile", href: "/register", label: sa7ebtiCopy.nav.profile, icon: PersonIcon }
 ] as const;
 
 export function Sa7ebtiBottomNav({ active, hiddenUntilScroll = false }: BottomNavProps) {
