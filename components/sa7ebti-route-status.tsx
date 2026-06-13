@@ -23,7 +23,7 @@ export function Sa7ebtiRouteStatus({
     <main className="sa7ebti-jasmine-pattern relative flex min-h-screen items-center overflow-hidden bg-[#FDFBF7] px-4 py-10 text-espresso">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,122,83,0.08),transparent_42%)]" />
 
-      <section className="relative mx-auto w-full max-w-xl rounded-[1.8rem] border border-espresso/[0.08] bg-white/[0.76] p-6 shadow-[0_20px_60px_rgba(38,37,34,0.08)] backdrop-blur-md">
+      <section className="sa7ebti-status-shell relative rounded-[1.8rem] border border-espresso/[0.08] bg-white/[0.76] p-5 shadow-[0_20px_60px_rgba(38,37,34,0.08)] backdrop-blur-md">
         <div className="flex items-center justify-between gap-4">
           <div className="rounded-full border border-espresso/10 bg-[#FAFAED] p-3 text-terracotta shadow-[0_10px_24px_rgba(38,37,34,0.06)]">
             {isLoading ? (

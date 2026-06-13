@@ -65,6 +65,27 @@
 }
 
 @layer components {
+  .sa7ebti-app-shell {
+    width: 100%;
+    max-width: 23.5rem;
+    margin-inline: auto;
+  }
+
+  .sa7ebti-page-shell {
+    width: 100%;
+    max-width: 23.5rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+    padding-top: 5rem;
+    padding-bottom: 7rem;
+  }
+
+  .sa7ebti-status-shell {
+    width: 100%;
+    max-width: 23.5rem;
+    margin-inline: auto;
+  }
+
   .sa7ebti-glass-card {
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(16px);

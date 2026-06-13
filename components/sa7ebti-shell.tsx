@@ -17,7 +17,7 @@ export function Sa7ebtiTopBar({
 }: TopBarProps) {
   return (
     <header className="fixed top-0 z-50 w-full border-b border-espresso/[0.04] bg-[rgba(253,251,247,0.72)] shadow-ambient backdrop-blur-md">
-      <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-5">
+      <div className="sa7ebti-app-shell flex h-14 items-center justify-between px-4">
         <div className="flex h-9 w-9 items-center justify-center text-terracotta">
           {leading ?? <span />}
         </div>

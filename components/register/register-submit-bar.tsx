@@ -11,7 +11,7 @@ export function RegisterSubmitBar({
 }: RegisterSubmitBarProps) {
   return (
     <footer className="fixed bottom-0 left-0 z-40 w-full bg-[rgba(253,251,247,0.88)] px-4 pb-safe pt-2 backdrop-blur-md">
-      <div className="mx-auto flex max-w-xl items-center gap-2.5 rounded-[1.35rem] border border-espresso/[0.08] bg-white/[0.72] p-2.5 shadow-soft">
+      <div className="sa7ebti-app-shell flex items-center gap-2.5 rounded-[1.35rem] border border-espresso/[0.08] bg-white/[0.72] p-2.5 shadow-soft">
         <div className="min-w-0 flex-1">
           <p className="text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-terracotta">
             wa9t l scan

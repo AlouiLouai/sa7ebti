@@ -20,12 +20,3 @@ export function GalleryIcon(props: IconProps) {
     </svg>
   );
 }
-
-export function SparkIcon(props: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
-      <path d="m12 2 1.8 4.9L18.7 8l-4.9 1.8L12 14.7 10.2 9.8 5.3 8l4.9-1.1L12 2Z" />
-      <path d="m18 14 1 2.7 2.7 1-2.7 1-1 2.8-1-2.8-2.8-1 2.8-1 1-2.7Z" />
-    </svg>
-  );
-}

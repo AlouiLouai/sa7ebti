@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LazyMotion, domAnimation, m, useMotionValueEvent, useScroll } from "motion/react";
 import { DiscoverIcon, LeafIcon, PersonIcon, ScannerFocusIcon } from "@/components/sa7ebti-icons";
 import { sa7ebtiCopy } from "@/lib/copy/sa7ebti-copy";
@@ -23,6 +23,7 @@ export function Sa7ebtiBottomNav({ active, hiddenUntilScroll = false }: BottomNa
   const [isCondensed, setIsCondensed] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(!hiddenUntilScroll);
+  const [viewportBottomOffset, setViewportBottomOffset] = useState(0);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const isNearTop = latest < 28;
@@ -36,6 +37,58 @@ export function Sa7ebtiBottomNav({ active, hiddenUntilScroll = false }: BottomNa
     setLastScrollY(latest);
   });
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    let frameId = 0;
+
+    const syncViewportBottomOffset = () => {
+      frameId = 0;
+
+      const visualViewport = window.visualViewport;
+
+      if (!visualViewport) {
+        setViewportBottomOffset(0);
+        return;
+      }
+
+      const nextOffset = Math.max(
+        0,
+        Math.round(window.innerHeight - visualViewport.height - visualViewport.offsetTop)
+      );
+
+      setViewportBottomOffset((current) => (current === nextOffset ? current : nextOffset));
+    };
+
+    const requestSync = () => {
+      if (frameId !== 0) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(syncViewportBottomOffset);
+    };
+
+    requestSync();
+
+    window.addEventListener("resize", requestSync);
+    window.addEventListener("orientationchange", requestSync);
+    window.visualViewport?.addEventListener("resize", requestSync);
+    window.visualViewport?.addEventListener("scroll", requestSync);
+
+    return () => {
+      if (frameId !== 0) {
+        window.cancelAnimationFrame(frameId);
+      }
+
+      window.removeEventListener("resize", requestSync);
+      window.removeEventListener("orientationchange", requestSync);
+      window.visualViewport?.removeEventListener("resize", requestSync);
+      window.visualViewport?.removeEventListener("scroll", requestSync);
+    };
+  }, []);
+
   return (
     <LazyMotion features={domAnimation}>
       <m.nav
@@ -46,19 +99,22 @@ export function Sa7ebtiBottomNav({ active, hiddenUntilScroll = false }: BottomNa
           pointerEvents: isVisible ? "auto" : "none"
         }}
         transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed bottom-0 z-50 w-full pb-safe"
+        style={{
+          bottom: `calc(env(safe-area-inset-bottom, 0px) + ${viewportBottomOffset}px + 0.35rem)`
+        }}
+        className="fixed inset-x-0 z-50 w-full"
       >
-        <div className="mx-auto flex w-full max-w-md justify-center px-3 pb-1">
+        <div className="sa7ebti-app-shell flex justify-center px-3">
           <m.div
             animate={{
-              scale: isCondensed ? 0.92 : 1,
-              y: isCondensed ? 5 : 0,
-              height: isCondensed ? 54 : 64
+              scale: isCondensed ? 0.96 : 1,
+              y: isCondensed ? 3 : 0,
+              height: isCondensed ? 54 : 60
             }}
             transition={{ type: "spring", stiffness: 360, damping: 30 }}
-            className="relative flex w-full max-w-[17.5rem] items-center justify-between overflow-hidden rounded-[24px] border border-white/[0.38] bg-[linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.14))] px-2 shadow-[0_12px_30px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-xl"
+            className="relative flex w-full max-w-[21rem] items-center justify-between overflow-hidden rounded-[999px] border border-[#F1E6DB] bg-[linear-gradient(180deg,rgba(253,251,247,0.96),rgba(247,239,230,0.94))] px-2 py-1.5 shadow-[0_14px_34px_rgba(38,37,34,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-xl"
           >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.2),transparent_58%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.42),transparent_58%)]" />
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = item.id === active;
@@ -72,49 +128,38 @@ export function Sa7ebtiBottomNav({ active, hiddenUntilScroll = false }: BottomNa
                   className="flex flex-1 items-center justify-center"
                 >
                   <m.div
-                    layout
                     whileTap={{ scale: 0.92 }}
                     transition={{ type: "spring", stiffness: 420, damping: 28 }}
                     animate={{
-                      scale: isActive ? (isCondensed ? 1.02 : 1.12) : isCondensed ? 0.9 : 1,
+                      scale: isActive ? 1 : isCondensed ? 0.95 : 0.98,
                       opacity: isActive ? 1 : 0.74
                     }}
-                    className="relative z-10 flex min-w-[54px] flex-col items-center justify-center"
+                    className="relative z-10 flex h-11 w-11 items-center justify-center"
                   >
-                    <m.div
-                      layout
-                      animate={{
-                        boxShadow: isActive
-                          ? isCondensed
-                            ? "0 8px 16px rgba(15, 23, 42, 0.1)"
-                            : "0 12px 24px rgba(15, 23, 42, 0.14)"
-                          : "0 0 0 rgba(38, 37, 34, 0)"
-                        ,
-                        width: isCondensed ? 30 : 34,
-                        height: isCondensed ? 30 : 34
-                      }}
-                      transition={{ duration: 0.22 }}
-                      className={`flex items-center justify-center rounded-full border transition-colors duration-200 ${
-                        isActive
-                          ? "border-white/[0.5] bg-[rgba(255,255,255,0.5)] text-espresso"
-                          : "border-transparent bg-transparent text-espresso/[0.78]"
-                      }`}
-                    >
-                      <Icon className={isCondensed ? "h-[0.96rem] w-[0.96rem]" : "h-[1.04rem] w-[1.04rem]"} />
-                    </m.div>
-                    <m.span
-                      animate={{
-                        opacity: isCondensed && !isActive ? 0 : 1,
-                        height: isCondensed && !isActive ? 0 : isCondensed ? 8 : 10,
-                        marginTop: isCondensed && !isActive ? 0 : isCondensed ? 1 : 3
-                      }}
-                      transition={{ duration: 0.2 }}
-                      className={`overflow-hidden font-medium tracking-[0.01em] text-espresso/[0.8] ${
-                        isCondensed ? "text-[7px]" : "text-[8px]"
-                      }`}
-                    >
-                      {item.label}
-                    </m.span>
+                    {isActive ? (
+                      <m.span
+                        layoutId="sa7ebti-nav-active"
+                        transition={{ type: "spring", stiffness: 340, damping: 30, mass: 0.72 }}
+                        className="absolute inset-0 rounded-full border border-[#EAD7C6] bg-[#fffaf4] shadow-[0_10px_24px_rgba(38,37,34,0.12)]"
+                      />
+                    ) : null}
+
+                    <span className="relative flex items-center justify-center">
+                      <Icon
+                        className={`${
+                          isCondensed ? "h-[0.96rem] w-[0.96rem]" : "h-[1.04rem] w-[1.04rem]"
+                        } ${isActive ? "text-espresso" : "text-espresso/[0.66]"}`}
+                      />
+                    </span>
+
+                    {isActive ? (
+                      <m.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.18 }}
+                        className="absolute -bottom-0.5 h-1.5 w-1.5 rounded-full bg-[#C97A53]"
+                      />
+                    ) : null}
                   </m.div>
                 </Link>
               );
